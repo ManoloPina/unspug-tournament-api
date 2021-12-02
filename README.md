@@ -42,4 +42,4 @@ The command will generate a /doc folder that will contain an index.html file. Op
 
 ### Project Structure
 
-*Under Construction*
+*Under Construction**
