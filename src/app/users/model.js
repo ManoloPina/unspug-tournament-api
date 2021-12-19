@@ -1,25 +1,27 @@
-const mongoose = require( "mongoose" );
-const md5 = require( "md5" );
+const mongoose = require("mongoose");
+const md5 = require("md5");
+const { v4: uuidv4 } = require("uuid");
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema( {
-    id: { type: String, required: true },
-    username: { type: String, required: true },
-    password: { type: String, required: true },
-    name: { type: String, required: true },
-    age: { type: Number, required: true, min: 18 },
-    sex: { type: String, required: true, enum: [ "male", "female" ] },
-}, {
+const userSchema = new Schema(
+  {
+    id: { type: String, required: true, unique: true },
+    nickname: { type: String, required: true },
+    classID: { type: Number, required: true },
+    guildName: { type: String, required: true },
+  },
+  {
     timestamps: true,
-} );
+  }
+);
 
-userSchema.methods.setPass = function( password ) {
-    this.password = md5( password );
+userSchema.methods.setUserId = function () {
+  this.id = uuidv4();
 };
 
-userSchema.methods.checkPass = function( password ) {
-    return this.password === md5( password );
-};
+// userSchema.methods.checkPass = function( password ) {
+//     return this.password === md5( password );
+// };
 
-module.exports = mongoose.model( "User", userSchema );
+module.exports = mongoose.model("User", userSchema);
